@@ -25,3 +25,8 @@ rest-template:
       base: 'randomuser.me'
       path: '/api'
 
+logging:
+  level:
+    app: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd'T'HH:mm:ss.SXXX}|2|%level|${spring.application.name},%X{correlationId}|${PID}|%thread|%logger{100}|%message%n"

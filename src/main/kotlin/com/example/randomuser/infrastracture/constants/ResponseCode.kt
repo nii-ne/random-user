@@ -8,6 +8,6 @@ enum class ResponseCode(val httpStatus: HttpStatus, val code: String, val messag
     BAD_REQUEST(HttpStatus.BAD_REQUEST, "400-000", "Invalid parameter"),
     NOT_FOUND(HttpStatus.NOT_FOUND, "404-000", "Not found"),
     TIMEOUT(HttpStatus.REQUEST_TIMEOUT, "408-000", "Timeout"),
-    GENERAL_ERROR(HttpStatus.INSUFFICIENT_STORAGE, "500-000", "Unexpected error"),
+    GENERAL_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "500-000", "Unexpected error"),
     SERVICE_UNAVAILABLE(HttpStatus.SERVICE_UNAVAILABLE, "503-000", "Service unavailable"),
 }
