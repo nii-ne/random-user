@@ -1,0 +1,27 @@
+server:
+  servlet:
+    context-path: /${spring.application.name}
+  shutdown: graceful
+spring:
+  application:
+    name: random-user
+  cache:
+    type: redis
+    redis:
+      key-prefix: ${spring.application.name}
+      time-to-live: 10m
+  redis:
+    host: localhost
+    port: 6379
+rest-template:
+  random-user:
+    max-total: 200
+    default-max-per-route: 100
+    connect-timeout: 10000
+    socket-timeout: 60000
+    keep-alive-header: 30
+    endpoints:
+      protocol: https
+      base: 'randomuser.me'
+      path: '/api'
+
