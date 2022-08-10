@@ -1,10 +1,11 @@
 package com.example.randomuser.infrastracture.configuration
 
 import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.boot.context.properties.ConstructorBinding
 import org.springframework.stereotype.Component
 
-@Component
+@ConstructorBinding
 @ConfigurationProperties(prefix = "redis")
-class RedisProperties {
-    lateinit var ttl: Number
-}
+data class RedisProperties (
+    val ttl: Number
+)

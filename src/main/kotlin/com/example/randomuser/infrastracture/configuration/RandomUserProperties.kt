@@ -1,15 +1,15 @@
 package com.example.randomuser.infrastracture.configuration
 
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.stereotype.Component
+import org.springframework.boot.context.properties.ConstructorBinding
 
-@Component
+@ConstructorBinding
 @ConfigurationProperties(prefix = "rest-template.random-user")
-class RandomUserProperties {
-    lateinit var maxTotal: Number
-    lateinit var defaultMaxPerRoute: Number
-    lateinit var connectTimeout: Number
-    lateinit var socketTimeout: Number
-    lateinit var keepAliveHeader: Number
-    lateinit var endpoints: Map<String, String>
-}
+data class RandomUserProperties(
+    val maxTotal: Number,
+    val defaultMaxPerRoute: Number,
+    val connectTimeout: Number,
+    val socketTimeout: Number,
+    val keepAliveHeader: Number,
+    val endpoints: Map<String, String>
+)
