@@ -15,7 +15,7 @@ data class UserResponse(
     constructor(userInfo: UserInfo) : this(
         name = "${userInfo.results[0].name.title} ${userInfo.results[0].name.first} ${userInfo.results[0].name.last}",
         gender = userInfo.results[0].gender,
-        address = "${userInfo.results[0].location.street.number} ${userInfo.results[0].location.street.name}, ${userInfo.results[0].location.city}, ${userInfo.results[0].location.state}, ${userInfo.results[0].location.country}, ${userInfo.results[0].location.postcode}",
+        address = "street ${userInfo.results[0].location.street.number} ${userInfo.results[0].location.street.name}, ${userInfo.results[0].location.city}, ${userInfo.results[0].location.state} ${userInfo.results[0].location.postcode} ${userInfo.results[0].location.country}",
         seed = userInfo.info.seed
     )
 }
