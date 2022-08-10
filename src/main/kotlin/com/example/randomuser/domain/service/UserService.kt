@@ -5,7 +5,7 @@ import com.example.randomuser.domain.client.RandomClient
 import com.example.randomuser.infrastracture.constants.ResponseCode
 import com.example.randomuser.infrastracture.exception.CommonException
 import org.slf4j.LoggerFactory
-import org.springframework.cache.annotation.Cacheable
+//import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 
 @Service
