@@ -1,0 +1,28 @@
+@startuml
+actor User
+participant "Random user Service" as service
+participant "Random user External API" as API
+database "Redis" as cache
+autonumber
+User -> service : Request for random user
+alt seed != null
+service -> cache : getUser()
+note right : key = seed
+cache -> service : response
+alt "Redis find not found or Redis exception"
+service -> API : getRandomUser()
+API -> service : response
+service --> cache : saveUser()
+
+end
+
+
+
+else seed == null
+service -> API : getUser()
+API -> service : response
+end
+
+service -> User : response
+
+@enduml
