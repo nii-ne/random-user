@@ -18,12 +18,9 @@ class RandomUserController(private val userService: UserService, private val red
     private val logger = LoggerFactory.getLogger(RandomUserController::class.java)
 
     @GetMapping("/random", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getRandomUser(@RequestParam(name = "seed", required = false) seed: String?): CommonResponse<Any> {
+    fun getRandomUser(@RequestParam(name = "seed", required = false) seed: String?): CommonResponse<UserResponse> {
         logger.info("Start getRandomUser with: {}", seed)
-        val response = seed?.let {
-            redisService.cacheManagement({ userService.getRandomUser(it) }, { redisService.getUser(it) })
-        } ?: userService.getRandomUser()
-
+        val response = seed?.let { redisService.getUser(it) } ?: userService.getRandomUser()
         return CommonResponse(
             ResponseCode.SUCCESS,
             response

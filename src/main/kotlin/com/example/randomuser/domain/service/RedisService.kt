@@ -3,12 +3,11 @@ package com.example.randomuser.domain.service
 import com.example.randomuser.application.response.UserResponse
 import com.example.randomuser.infrastracture.configuration.RedisProperties
 import com.example.randomuser.infrastracture.constants.Namespace
-import java.util.concurrent.TimeUnit
-import javax.annotation.Resource
 import org.slf4j.LoggerFactory
-import org.springframework.data.redis.RedisConnectionFailureException
 import org.springframework.data.redis.core.ValueOperations
 import org.springframework.stereotype.Service
+import java.util.concurrent.TimeUnit
+import javax.annotation.Resource
 
 @Service
 class RedisService(private val userService: UserService, private val redisProperties: RedisProperties) {
@@ -19,29 +18,20 @@ class RedisService(private val userService: UserService, private val redisProper
     private lateinit var valueOperations: ValueOperations<String, UserResponse>
 
 
-    fun cacheManagement(data: () -> Any?, cache: () -> UserResponse): Any? {
-        return try {
-            cache.invoke().also { logger.info("Cached data: $it") }
-        } catch (e: Exception) {
-            when (e) {
-                is RedisConnectionFailureException-> {
-                    logger.error(e.message)
-                    data.invoke()
-                }
-
-                else -> throw e
-            }
-        }
-    }
     fun getUser(seed: String): UserResponse {
         val key = Namespace.RANDOM_USER_SERVICE.plus(":").plus(seed)
         return get(key)
             ?: userService.getRandomUser(seed).also {
-                put(key, it, redisProperties.ttl.toLong())
+                kotlin.runCatching {
+                    put(key, it, redisProperties.ttl.toLong())
+                }.onFailure { logger.error("save data to redis error") }
             }
     }
-    private fun get(key: String) = valueOperations.get(key).also {
-        logger.info("Getting user from cache with: {}, response: {}", key, it)}
+    private fun get(key: String) = kotlin.runCatching {
+        valueOperations.get(key).also {
+            logger.info("Getting user from cache with: {}, response: {}", key, it)
+        }
+    }.getOrNull()
     private fun put(key: String, data: UserResponse, ttl: Long) = valueOperations.set(key, data, ttl, TimeUnit.MILLISECONDS).also {
         logger.info("Caching user with: {}, value: {}", key, data) }
 
