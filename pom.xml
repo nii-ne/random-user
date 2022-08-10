@@ -17,7 +17,8 @@
         <java.version>17</java.version>
         <kotlin.version>1.6.21</kotlin.version>
         <httpclient.version>4.5.13</httpclient.version>
-        <jedis.version>3.6.3</jedis.version>
+        <jedis.version>4.2.3</jedis.version>
+        <jacoco.version>0.8.7</jacoco.version>
     </properties>
     <dependencies>
         <dependency>
@@ -55,11 +56,27 @@
             <artifactId>jedis</artifactId>
             <version>${jedis.version}</version>
         </dependency>
+        <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.mockk/mockk -->
+        <dependency>
+            <groupId>io.mockk</groupId>
+            <artifactId>mockk</artifactId>
+            <version>1.12.5</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -88,6 +105,53 @@
                         <version>${kotlin.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>com/example/randomuser/Application*.*</exclude>
+                                <exclude>com/example/randomuser/**/configuration/*.*</exclude>
+                                <exclude>com/example/randomuser/**/models/**/*.*</exclude>
+                                <exclude>com/example/randomuser/**/response/*.*</exclude>
+                                <exclude>com/example/randomuser/**/constants/*.*</exclude>
+                                <exclude>com/example/randomuser/infrastracture/exception/CommonException*.*</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>com/example/randomuser/Application*.*</exclude>
+                                <exclude>com/example/randomuser/**/configuration/*.*</exclude>
+                                <exclude>com/example/randomuser/**/models/**/*.*</exclude>
+                                <exclude>com/example/randomuser/**/response/*.*</exclude>
+                                <exclude>com/example/randomuser/**/constants/*.*</exclude>
+                                <exclude>com/example/randomuser/infrastracture/exception/CommonException*.*</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
