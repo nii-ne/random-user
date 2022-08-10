@@ -1,6 +1,4 @@
 server:
-  servlet:
-    context-path: /${spring.application.name}
   shutdown: graceful
 spring:
   application:
