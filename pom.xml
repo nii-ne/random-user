@@ -146,7 +146,8 @@
                                 <exclude>com/example/randomuser/**/models/**/*.*</exclude>
                                 <exclude>com/example/randomuser/**/response/*.*</exclude>
                                 <exclude>com/example/randomuser/**/constants/*.*</exclude>
-                                <exclude>com/example/randomuser/infrastracture/exception/CommonException*.*</exclude>
+                                <exclude>com/example/randomuser/infrastracture/exception/Common*.*</exclude>
+                                <exclude>com/example/randomuser/infrastracture/interceptors/*.*</exclude>
                             </excludes>
                         </configuration>
                     </execution>
@@ -163,7 +164,7 @@
                                 <exclude>com/example/randomuser/**/models/**/*.*</exclude>
                                 <exclude>com/example/randomuser/**/response/*.*</exclude>
                                 <exclude>com/example/randomuser/**/constants/*.*</exclude>
-                                <exclude>com/example/randomuser/infrastracture/exception/CommonException*.*</exclude>
+                                <exclude>com/example/randomuser/infrastracture/exception/Common*.*</exclude>
                                 <exclude>com/example/randomuser/infrastracture/interceptors/*.*</exclude>
                             </excludes>
                         </configuration>
