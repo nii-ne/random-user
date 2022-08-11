@@ -11,6 +11,7 @@ spring:
   redis:
     host: localhost
     port: 6379
+    ttl: 360000
     jedis:
       pool:
         max-active: 100
@@ -28,8 +29,6 @@ rest-template:
       protocol: https
       base: 'randomuser.me'
       path: '/api'
-redis:
-  ttl: 360000
 logging:
   level:
     app: INFO

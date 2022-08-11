@@ -17,7 +17,7 @@
         <java.version>17</java.version>
         <kotlin.version>1.6.21</kotlin.version>
         <httpclient.version>4.5.13</httpclient.version>
-        <jedis.version>4.2.3</jedis.version>
+        <jedis.version>3.6.3</jedis.version>
         <jacoco.version>0.8.7</jacoco.version>
         <spring-restdocs.version>2.0.6.RELEASE</spring-restdocs.version>
         <asciidoctor.version>1.5.8</asciidoctor.version>

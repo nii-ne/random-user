@@ -8,12 +8,16 @@ import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.serializer.StringRedisSerializer
 
 @Configuration
-class RedisConfig
- {
-     @Bean
-     fun jedisConnectionFactory(): JedisConnectionFactory {
-         return JedisConnectionFactory()
-     }
+class RedisConfig(private val redisProperties: RedisProperties) {
+    @Bean(name = ["jedisConnectionFactory"])
+    fun jedisConnectionFactory(): JedisConnectionFactory {
+        val jedisConnectionFactory =  JedisConnectionFactory()
+        jedisConnectionFactory.hostName = redisProperties.host
+        jedisConnectionFactory.port = redisProperties.port
+        jedisConnectionFactory.usePool = true
+        return jedisConnectionFactory
+    }
+
     @Bean(name = ["mainRedisTemplate"])
     fun redisTemplate(jedisConnectionFactory: JedisConnectionFactory): RedisTemplate<String, UserResponse> {
         val redisTemplate = RedisTemplate<String, UserResponse>()
